@@ -72,6 +72,38 @@ def createNew():
 
     return f, f.heads[0]
 
+def _DFS(adj_mat:[[]], head:int, expand=null, doAfter=null, doAfter=null ):
+    if not expand: expand = lambda *args: True
+    if not doBefore: doBefore = lambda *args: True
+    if not doAfter: doAfter = lambda *args: True
+    
+    for i in range(len(adj_mat[head])):
+        if adj_mat[head][i] and expand(i):
+            doBefore(i)    
+            _DFS(adj_mat, i)
+            doAfter(i)
+
+def findHeads(adj_mat: [[]]):
+    nV = len(adj_mat)
+
+    m = np.arange(nV)
+    u = []
+
+
+
+    for i in range(nV):
+        if m[i] in u:
+            continue
+
+        _DFS(adj_mat, i)
+
+
+
+
+    
+    return np.unique(m).tolist()
+
+
 def feedAdjMat(adj_mat:[[]]):
     nV = adj_mat.length()
     nlist = [ node() for i in range(nV) ]
